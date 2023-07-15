@@ -1,0 +1,14 @@
+github.com/bulwarkid/virtual-fido v0.2.0 h1:sQeh6Wiwc1USBBGjK5Z7rVyDm8NvjlyKe4Skzf1ugmI=
+github.com/bulwarkid/virtual-fido v0.2.0/go.mod h1:pNHOgvE3SmxJXBWOj13uKDDhSSfQAm/YavqWyxB1YJ4=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713194036-f78090336910 h1:uZswzIplj82TjW4KdIsINhLBeP3t9M3UXfRq7WfXXqI=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713194036-f78090336910/go.mod h1:pNHOgvE3SmxJXBWOj13uKDDhSSfQAm/YavqWyxB1YJ4=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713200753-476de0a4234b h1:v1EuuRlQ9R+afWdxNcFPykL3mCQ/0rTvDXQ6Awmf6Yo=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713200753-476de0a4234b/go.mod h1:pNHOgvE3SmxJXBWOj13uKDDhSSfQAm/YavqWyxB1YJ4=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713205819-774ee9343311 h1:cDWogAStfRFpUny9GNEKFOLA6mjjXBW+QtPVpgLU0B4=
+github.com/bulwarkid/virtual-fido v0.2.1-beta.2.0.20230713205819-774ee9343311/go.mod h1:pNHOgvE3SmxJXBWOj13uKDDhSSfQAm/YavqWyxB1YJ4=
+github.com/fxamacker/cbor/v2 v2.4.0 h1:ri0ArlOR+5XunOP8CRUowT0pSJOwhW098ZCUyskZD88=
+github.com/fxamacker/cbor/v2 v2.4.0/go.mod h1:TA1xS00nchWmaBnEIxPSE5oHLuJBAVvqrtAnWBwBCVo=
+github.com/x448/float16 v0.8.4 h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=
+github.com/x448/float16 v0.8.4/go.mod h1:14CWIYCyZA/cWjXOioeEpHeN/83MdbZDRQHoFcYsOfg=
+golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be h1:fmw3UbQh+nxngCAHrDCCztao/kbYFnWjoqop8dHx05A=
+golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
