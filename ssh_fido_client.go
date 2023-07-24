@@ -60,7 +60,6 @@ func (client *SSHFIDOClient) NewCredentialSource(
 	}
 	encodedSource := encodeCredentialSource(source, client.encryptionKey)
 	source.ID = encodedSource
-	fmt.Printf("ID: %#v\n", source.ID)
 	return source
 }
 func (client *SSHFIDOClient) GetAssertionSource(relyingPartyID string, allowList []webauthn.PublicKeyCredentialDescriptor) *identities.CredentialSource {
@@ -68,7 +67,6 @@ func (client *SSHFIDOClient) GetAssertionSource(relyingPartyID string, allowList
 	var err error = nil
 	for _, descriptor := range allowList {
 		source, err = decodeCredentialSource(descriptor.ID, client.encryptionKey)
-		fmt.Printf("Err: %s\n", err)
 		if err == nil {
 			if source.RelyingParty.ID == relyingPartyID {
 				break
@@ -88,7 +86,7 @@ func (client *SSHFIDOClient) CreateAttestationCertificiate(privateKey *cose.Supp
 
 func prompt(prompt string) string {
 	fmt.Println(prompt)
-	fmt.Print("-->")
+	fmt.Print("--> ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	return scanner.Text()
@@ -174,9 +172,7 @@ type encodedCredentialSource struct {
 func encodeCredentialSource(source *identities.CredentialSource, key []byte) []byte {
 	privateKeyBytes := cose.MarshalCOSEPrivateKey(source.PrivateKey)
 	encodedSource := encodedCredentialSource{PrivateKey: privateKeyBytes, RelyingParty: *source.RelyingParty, User: *source.User}
-	fmt.Printf("Encoded source: %#v\n\n", encodedSource)
 	sourceBytes := MarshalCBOR(&encodedSource)
-	fmt.Printf("Source bytes: %#v\n\n", sourceBytes)
 	box := crypto.Seal(key, sourceBytes)
 	encryptedBytes := MarshalCBOR(box)
 	return encryptedBytes
@@ -194,7 +190,6 @@ func decodeCredentialSource(sourceBytes []byte, key []byte) (*identities.Credent
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("Decoded source: %#v\n", decodedSource)
 	privateKey, err := cose.UnmarshalCOSEPrivateKey(decodedSource.PrivateKey)
 	if err != nil {
 		return nil, err

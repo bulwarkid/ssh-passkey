@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 
 	virtual_fido "github.com/bulwarkid/virtual-fido"
 	"github.com/bulwarkid/virtual-fido/cose"
-	"github.com/bulwarkid/virtual-fido/util"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )
@@ -46,9 +46,25 @@ func start(cmd *cobra.Command, args []string) {
 		return
 	}
 	client := NewSSHFIDOClient(&coseKey)
-	virtual_fido.SetLogLevel(util.LogLevelDebug)
 	virtual_fido.SetLogOutput(os.Stdout)
-	virtual_fido.Start(client)
+	done := make(chan bool)
+	go func() {
+		virtual_fido.Start(client)
+		done <- true
+	}()
+	go func() {
+		prog := exec.Command("sudo", "usbip", "attach", "-r", "127.0.0.1", "-b", "2-2")
+		prog.Stdin = os.Stdin
+		prog.Stdout = os.Stdout
+		prog.Stderr = os.Stderr
+		err := prog.Run()
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+		}
+		done <- true
+	}()
+	<-done
+	<-done
 }
 
 var rootCmd = &cobra.Command{
@@ -63,7 +79,8 @@ func init() {
 		Short: "Start up FIDO device",
 		Run:   start,
 	}
-	start.Flags().StringVar(&keyFilename, "key", "", "ECDSA SSH private key to use")
+	rootCmd.PersistentFlags().StringVar(&keyFilename, "key", "", "ECDSA SSH private key to use")
+	rootCmd.MarkFlagRequired("key")
 	rootCmd.AddCommand(start)
 }
 
