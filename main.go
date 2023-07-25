@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 
 	virtual_fido "github.com/bulwarkid/virtual-fido"
 	"github.com/bulwarkid/virtual-fido/cose"
@@ -53,7 +52,7 @@ func start(cmd *cobra.Command, args []string) {
 		done <- true
 	}()
 	go func() {
-		prog := exec.Command("sudo", "usbip", "attach", "-r", "127.0.0.1", "-b", "2-2")
+		prog := usbipCommand()
 		prog.Stdin = os.Stdin
 		prog.Stdout = os.Stdout
 		prog.Stderr = os.Stderr
@@ -79,7 +78,7 @@ func init() {
 		Short: "Start up FIDO device",
 		Run:   start,
 	}
-	rootCmd.PersistentFlags().StringVar(&keyFilename, "key", "", "ECDSA SSH private key to use")
+	rootCmd.PersistentFlags().StringVar(&keyFilename, "key", "", "SSH private key to use")
 	rootCmd.MarkFlagRequired("key")
 	rootCmd.AddCommand(start)
 }

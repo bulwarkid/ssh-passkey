@@ -97,7 +97,11 @@ func (client *SSHFIDOClient) ApproveAccountCreation(relyingParty string) bool {
 	return strings.ToLower(answer) == "y"
 }
 func (client *SSHFIDOClient) ApproveAccountLogin(credentialSource *identities.CredentialSource) bool {
-	answer := prompt(fmt.Sprintf("Use SSH key to login to %s? (Y/n)", credentialSource.RelyingParty.Name))
+	name := credentialSource.RelyingParty.Name
+	if name == "" {
+		name = credentialSource.RelyingParty.ID
+	}
+	answer := prompt(fmt.Sprintf("Use SSH key to login to %s? (Y/n)", name))
 	return strings.ToLower(answer) == "y"
 }
 func (client *SSHFIDOClient) ApproveU2FRegistration(keyHandle *webauthn.KeyHandle) bool {
